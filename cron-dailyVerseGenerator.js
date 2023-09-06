@@ -11,4 +11,4 @@ cron.schedule('* * * * *',() => {
             console.log('error occurred');
         }
     })
-})
+},null, true, "America/Los_Angeles")

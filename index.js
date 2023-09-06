@@ -23,7 +23,7 @@ app.post('/api/add-verse', (req, res) => {
     const content =req.body.verse;
     console.log(req.body)
 
-    fs.appendFile('database.txt', content+"\r\n", err => {
+    fs.appendFileSync('database.txt', content+"\n", err => {
     if (err) {
         console.log("An error occurred");
     }
@@ -40,6 +40,11 @@ app.get('/api/daily-verse', (req, res) => {
 app.get('/', (req,res) => {
 	res.json({message: "Home"});
 });
+
+app.get('/api/all-verses', (req, res) => {
+    const allBibleVerses = fs.readFileSync('database.txt', 'utf8').split('\n').map(line => line.trim());
+    res.json({verses: allBibleVerses});
+})
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port} `);
